@@ -1,0 +1,131 @@
+<div class="row">
+  <button type="button" class="btn btn-success"  (click)="open(content)">ADD APPLICATION</button>
+</div>
+<div>
+  <table class="table table-hover table-striped text-center">
+        <thead>
+          <tr>
+                <th >Full name</th>
+                <th >Personal code</th>
+                <th >Loan type</th>
+                <th >Loan amount</th>
+                <th >Loan count</th>
+                <th >Email</th>
+                <th >Phone</th>
+                <th >Address</th>
+                <th >Registration/update date</th>
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let l of loans;let i = index">
+
+            <td>{{l.client.firstName+" "+l.client.lastName}}</td>
+            <td>{{l.client.personalCode}}</td>
+            <td>{{l.loanType }}</td>
+            <td>{{l.loanSum }}</td>
+            <td>{{l.client.appCount }}</td>
+            <td>{{l.client.email}}</td>
+            <td>{{l.client.phoneNumber }}</td>
+            <td>{{l.client.address }}</td>
+            <td>{{l.lastUpdateTime }}</td>
+
+              <td>
+                <div class="btn-group d-flex " role="group">
+
+                  <button type="button" class="btn btn-danger " (click)="deleteLoanApplication(l.id)">
+                    DELETE</button>
+                    <button type="button" class="btn btn-warning " (click)="openToUpdate(contentReady,l.id)">
+                      UPDATE
+                      </button>
+                </div>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+        <div class="row mt-3">
+
+        <button type="button" class="btn btn-warning" (click)="deleteAllLoanApplications()">DELETE ALL APPLICATIONS</button>
+      </div>
+      <div class="row mt-3">
+        <button type="button" class="btn btn-success"  (click)="saveSQL()">SAVE SQL FILE</button>
+      </div>
+    </div>
+
+      <ng-template #content #contentReady let-modal>
+
+        <div class="modal-header">
+          <h4 class="modal-title"
+            id="modal-basic-title">
+            APPLICATION FORM
+          </h4>
+
+          <button type="button" class="close"
+              aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">
+              X
+            </span>
+          </button>
+        </div>
+          <div class="modal-body">
+          <form [formGroup]="form"  class="form-group">
+            <h2 class="form-signin-heading">Current question:</h2>
+             <div id="data">
+               <!--div class="form-group">
+                 <label for="questionContent">Question content:</label>
+                  <textarea  id="questionContent" class="form-control bg-light" formControlName="content" rows = "1">
+                 </textarea>
+               </div-->
+
+               <div class="form-group">
+                 <label for="firstName">First name:</label>
+                 <input  id="firstName" class="form-control bg-light" formControlName="firstName">
+               </div>
+               <div class="form-group" >
+                 <label for="lastName">Last name:</label>
+                 <input  id="lastName" class="form-control bg-light" formControlName="lastName">
+               </div>
+               <div class="form-group">
+                 <label for="personalCode">Personal code:</label>
+                 <input  id="personalCode" class="form-control bg-light" formControlName="personalCode">
+               </div>
+
+               <div class="form-group">
+                 <label for="loanType">Loan type:</label>
+                 <select class="custom-select" class="form-control bg-light" id="loanType" formControlName="loanType">
+                  <option selected>Choose...</option>
+                  <option >STUDENT_LOAN</option>
+                  <option >REAL_ESTATE</option>
+                  <option >SMALL_LOAN</option>
+                </select>
+                </div>
+               <div class="form-group">
+                 <label for="loanSum">Loan amount:</label>
+                 <input  id="loanSum" class="form-control bg-light" formControlName="loanSum">
+               </div>
+               <div class="form-group">
+                 <label for="email">Email:</label>
+                 <input  id="email" class="form-control bg-light" formControlName="email">
+               </div>
+               <div class="form-group">
+                 <label for="phoneNumber">Phone number:</label>
+                 <input  id="phoneNumber" class="form-control bg-light" formControlName="phoneNumber">
+               </div>
+               <div class="form-group">
+                 <label for="address">Address:</label>
+                 <input  id="address" class="form-control bg-light" formControlName="address">
+               </div>
+
+
+             </div>
+
+             <div class="form-group">
+               <button class="btn btn-lg btn-primary btn-block mt-2" [disabled]="!form.valid" type="submit" (click)="onSubmit()">Submit</button>
+             </div>
+            </form>
+          </div>
+
+      </ng-template>
